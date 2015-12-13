@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Domain Changer</title>
+    <style>
+        BODY {width : 420px; min-height:100px;}
+    </style>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="panel panel-primary" style="margin-top: 10px;">
+        <div class=panel-heading>
+            <h3 class=panel-title><img src="images/icon48.png" width="18" height="18" style="vertical-align:text-bottom"/>Domain Changer</h3>
+        </div>
+        <div class=panel-body>
+            <label for="domain-list">Domain List</label>
+            <div class="list-group" id="domain-list" style="margin-bottom: 0px;">
+                <a href="#" id="localhost:8080" class="list-group-item">LOCAL<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
+            </div>
+        </div>
+        <div class=panel-body>
+            <label>Domain Add</label>
+            <ul class="list-group" style="margin-bottom: 0px;">
+                <li class="list-group-item">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">Name</span>
+                        <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="ex) localhost">
+                    </div>
+                    <div class="input-group" style="margin-top: 6px">
+                        <span class="input-group-addon" id="basic-addon3">Domain</span>
+                        <input type="text" class="form-control" id="domain" aria-describedby="basic-addon3" placeholder="ex) 192.168.0.1:8080">
+                    </div>
+                    <button class="btn btn-default" style="margin-top: 6px;">Add</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> <!-- /container -->
+
+<script src="javascripts/jquery-2.1.4.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<!--<script src="../javascripts/angular.js"></script>-->
+<script src="javascripts/popup.js"></script>
+</body>
+</html>
