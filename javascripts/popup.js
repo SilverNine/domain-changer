@@ -7,6 +7,10 @@ $(document).ready(function() {
         currentDomain = currentUrl.substring(0,currentUrl.indexOf("/"));
     });
 
+    $("#addBtn").click(function(){
+        saveDomains();
+    });
+
     $("#domain-list .list-group-item .badge").click(function(tab){
         event.stopPropagation()
     });
@@ -26,4 +30,26 @@ $(document).ready(function() {
 
 function replaceProtocol(url){
     return url.replace('http://','').replace('https://','');
+}
+
+function saveDomains() {
+    if ($("#name").val().length < 1 || $("#domain").val().length < 1) {
+        alert('Error: No value specified');
+        return;
+    }
+
+    //{ "name":"localhost", "domain":"192.168.0.1:8080" }
+    var addData = "{\"name\":\""+$("#name").val()+"\", \"domain\":\""+$("#domain").val()+"\"}";
+    addData = JSON.parse(addData);
+    chrome.storage.sync.set("domain-changer-list", addData, function() {
+        console.log(addData);
+        alert('Domain saved');
+
+
+        chrome.storage.sync.get("domain-changer-list", function(domains) {
+            if (!chrome.runtime.error) {
+                console.log(domains);
+            }
+        });
+    });
 }
