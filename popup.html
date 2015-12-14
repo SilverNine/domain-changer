@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Domain Changer</title>
     <style>
-        BODY {width : 420px; min-height:100px;}
+        BODY {width : 500px; min-height:100px;}
     </style>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 </head>
@@ -19,16 +19,6 @@
         <div class=panel-body>
             <label for="domain-list">Domain List</label>
             <div class="list-group" id="domain-list" style="margin-bottom: 0px;">
-                <a href="#" id="localhost:8080" class="list-group-item">LOCAL<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="58.229.122.78:8089" class="list-group-item">API DEV<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="58.229.122.89:6060" class="list-group-item">API STAGING<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="1.234.47.15:6060" class="list-group-item">WAS1<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="1.234.47.16:6060" class="list-group-item">WAS2<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="1.234.47.17:6060" class="list-group-item">WAS3<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="58.229.122.75:6060" class="list-group-item">WAS7<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="58.229.122.83:6060" class="list-group-item">WAS8<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="1.234.47.13:6060" class="list-group-item">WAS9<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
-                <a href="#" id="1.234.47.2:6060" class="list-group-item">WAS10<span class="badge"><span class="glyphicon glyphicon-remove" aria-hidden=true></span></span></a>
             </div>
         </div>
         <div class=panel-body>
@@ -37,15 +27,18 @@
                 <li class="list-group-item">
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon3">Name</span>
-                        <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="ex) localhost">
+                        <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="ex) localhost" maxlength="20">
                     </div>
                     <div class="input-group" style="margin-top: 6px">
                         <span class="input-group-addon" id="basic-addon3">Domain</span>
-                        <input type="text" class="form-control" id="domain" aria-describedby="basic-addon3" placeholder="ex) 192.168.0.1:8080">
+                        <input type="text" class="form-control" id="domain" aria-describedby="basic-addon3" placeholder="ex) 192.168.0.1:8080" maxlength="20">
                     </div>
                     <button class="btn btn-default" id="addBtn" style="margin-top: 6px;">Add</button>
                 </li>
             </ul>
+        </div>
+        <div class=panel-body style="display:none;" id="alert">
+            <div class="alert alert-info" role="alert"></div>
         </div>
     </div>
 </div> <!-- /container -->

@@ -8,14 +8,14 @@ $(document).ready(function() {
         currentUrl = replaceProtocol(tabs[0].url);
         currentDomain = currentUrl.substring(0,currentUrl.indexOf("/"));
     });
-});
 
-function attachEvent(){
     $("#addBtn").click(function(){
         saveDomain();
         event.stopPropagation();
     });
+});
 
+function attachEvent(){
     $("#domain-list .list-group-item .badge").click(function(){
         removeDomain($(this).parent().attr("id"));
         event.stopPropagation();
@@ -38,7 +38,7 @@ function replaceProtocol(url){
 
 function saveDomain() {
     if ($("#name").val().length < 1 || $("#domain").val().length < 1) {
-        alert('Error: No value specified');
+        showAlert("Error: No value specified");
         return;
     }
 
@@ -52,7 +52,8 @@ function saveDomain() {
             getDomains = getDomains + delimiter + setDomain;
 
             chrome.storage.sync.set({"domain-changer-list":getDomains}, function() {
-                alert('Domain saved');
+                showAlert("Domain saved");
+                resetDomainList();
             });
         }
     });
@@ -68,6 +69,7 @@ function resetDomainList() {
             getDomainArray.forEach(function(obj){
                 var name = obj.split("|")[0];
                 var domain = obj.split("|")[1];
+                name = name + "  ( "+domain+" )";
 
                 $("#domain-list").append("<a href=\"#\" id=\""+domain+"\" class=\"list-group-item\">"+name+"<span class=\"badge\"><span class=\"glyphicon glyphicon-remove\" aria-hidden=true></span></span></a>");
             });
@@ -82,23 +84,31 @@ function removeDomain(targetDomain) {
         if (!chrome.runtime.error) {
             var getDomainArray = domains["domain-changer-list"].split("$");
 
-            console.log(getDomainArray.length);
-
             if(getDomainArray.length < 2) {
-                alert("Faild : at least 1 domain");
+                showAlert("Faild : at least 1 domain");
                 return;
             }
 
             var index = 0;
-            getDomainArray.forEach(function(obj){
-                if(targetDomain === obj.split("|")[1]) {
-                    return;
+            var Break = new Error('Break');
+
+            try{
+                getDomainArray.forEach(function(obj){
+                    if(targetDomain === obj.split("|")[1]) {
+                        throw Break;
+                    }
+
+                    index = index + 1;
+                });
+            } catch(e) {
+                console.log(e);
+                console.log(index);
+                if (e != Break) {
+                    throw e;
                 }
+            }
 
-                index = index + 1;
-            });
-
-            getDomainArray.splice(index, index);
+            getDomainArray.splice(index, 1);
 
             var getDomains = getDomainArray.join("$");
 
@@ -107,4 +117,14 @@ function removeDomain(targetDomain) {
             });
         }
     });
+}
+
+function showAlert(message){
+    $("#alert").show("slow");
+    $("#alert .alert-info").text(message);
+
+    setTimeout(function(){
+        $("#alert").hide("slow");
+        $("#alert .alert-info").text("");
+    }, 2000);
 }
