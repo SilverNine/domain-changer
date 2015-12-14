@@ -46,13 +46,22 @@ function saveDomain() {
 
     chrome.storage.sync.get("domain-changer-list", function(domains) {
         if (!chrome.runtime.error) {
-
             var getDomains = domains["domain-changer-list"];
-            var delimiter =  getDomains.length > 0 ? "$" : "";
+            var delimiter;
+
+            if(getDomains == undefined){
+                getDomains = "";
+                delimiter = "";
+            } else {
+                delimiter =  getDomains.length > 0 ? "$" : "";
+            }
+
             getDomains = getDomains + delimiter + setDomain;
 
             chrome.storage.sync.set({"domain-changer-list":getDomains}, function() {
                 showAlert("Domain saved");
+                $("#name").val("");
+                $("#domain").val("");
                 resetDomainList();
             });
         }
@@ -64,7 +73,13 @@ function resetDomainList() {
 
     chrome.storage.sync.get("domain-changer-list", function(domains) {
         if (!chrome.runtime.error) {
-            var getDomainArray = domains["domain-changer-list"].split("$");
+            var getDomainArray;
+
+            if(domains["domain-changer-list"] == undefined) {
+                getDomainArray = new Array();
+            } else {
+                getDomainArray = domains["domain-changer-list"].split("$");
+            }
 
             getDomainArray.forEach(function(obj){
                 var name = obj.split("|")[0];
